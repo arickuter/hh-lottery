@@ -18,6 +18,14 @@ const config: HardhatUserConfig = {
     rinkeby: { url: RINKEBY_RPC_URL, accounts: [PRIVATE_KEY], chainId: 4 },
     localhost: { url: "http://127.0.0.1:8545/", chainId: 31337 },
   },
+  gasReporter: {
+    enabled: false,
+    outputFile: "gas-report.txt",
+    noColors: true,
+    currency: "USD",
+    coinmarketcap: COINMARKETCAP_API_KEY,
+    token: "ETH",
+  },
   namedAccounts: {
     deployer: {
       default: 0,

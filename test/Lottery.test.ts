@@ -1,3 +1,0 @@
-describe("Lottery", () => {
-  beforeEach(async () => {});
-});

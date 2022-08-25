@@ -1,6 +1,10 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { networkConfig, developmentChains } from "../helper_hardhat_config";
+import {
+  networkConfig,
+  developmentChains,
+  VERIFICATION_BLOCK_CONFIRMATIONS,
+} from "../helper_hardhat_config";
 
 const deployLottery: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
@@ -10,6 +14,9 @@ const deployLottery: DeployFunction = async function (
   const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
   const chainId: number = network.config.chainId!;
+  const waitBlockConfirmations = developmentChains.includes(network.name)
+    ? 1
+    : VERIFICATION_BLOCK_CONFIRMATIONS;
 
   log("----------------------------------------------------");
   log("Deploying Lottery and waiting for confirmations...");
@@ -18,7 +25,7 @@ const deployLottery: DeployFunction = async function (
     args: [],
     log: true,
     // we need to wait if on a live network so we can verify properly
-    waitConfirmations: networkConfig[network.name].blockConfirmations || 0,
+    waitConfirmations: waitBlockConfirmations,
   });
   log(`Lottery deployed at ${lottery.address}`);
   if (

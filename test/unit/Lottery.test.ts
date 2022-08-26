@@ -57,7 +57,6 @@ import { developmentChains, networkConfig } from "../../helper_hardhat_config";
         });
         it("entrance closed during calculation", async () => {
           await lottery.enterLottery({ value: entranceFee });
-          await lottery.enterLottery({ value: entranceFee });
           await network.provider.send("evm_increaseTime", [
             interval.toNumber() + 1,
           ]);
@@ -81,7 +80,6 @@ import { developmentChains, networkConfig } from "../../helper_hardhat_config";
         });
         it("return false if lottery not open", async () => {
           await lottery.enterLottery({ value: entranceFee });
-          await lottery.enterLottery({ value: entranceFee });
           await network.provider.send("evm_increaseTime", [
             interval.toNumber() + 1,
           ]);
@@ -92,7 +90,6 @@ import { developmentChains, networkConfig } from "../../helper_hardhat_config";
         });
         it("return false if not enough time has passed", async () => {
           await lottery.enterLottery({ value: entranceFee });
-          await lottery.enterLottery({ value: entranceFee });
           await network.provider.send("evm_increaseTime", [
             interval.toNumber() - 2,
           ]);
@@ -101,7 +98,6 @@ import { developmentChains, networkConfig } from "../../helper_hardhat_config";
           assert.equal(upkeepNeeded, false);
         });
         it("return true if enough time has passed, has players, eth, and is open", async () => {
-          await lottery.enterLottery({ value: entranceFee });
           await lottery.enterLottery({ value: entranceFee });
           await network.provider.send("evm_increaseTime", [
             interval.toNumber() + 1,
@@ -114,7 +110,6 @@ import { developmentChains, networkConfig } from "../../helper_hardhat_config";
 
       describe("performUpkeep", function () {
         it("can only run if checkupkeep is true", async () => {
-          await lottery.enterLottery({ value: entranceFee });
           await lottery.enterLottery({ value: entranceFee });
           await network.provider.send("evm_increaseTime", [
             interval.toNumber() + 1,
@@ -131,7 +126,6 @@ import { developmentChains, networkConfig } from "../../helper_hardhat_config";
         });
         it("updates the lottery state and emits a requestId", async () => {
           // Too many asserts in this test!
-          await lottery.enterLottery({ value: entranceFee });
           await lottery.enterLottery({ value: entranceFee });
           await network.provider.send("evm_increaseTime", [
             interval.toNumber() + 1,
